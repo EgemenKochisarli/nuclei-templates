@@ -10,6 +10,8 @@ info:
   tags: exposure,listing,service,edb
   metadata:
     max-request: 1
+    google-query: intitle:"Index of" service.pwd
+    shodan-query: html:"_vti_pvt" title:"index of"
 
 http:
   - method: GET
