@@ -1,0 +1,30 @@
+id: vnc-no-auth
+
+info:
+  name: VNC No Authentication Required
+  author: Team Corcik
+  severity: high
+  description: Unauthenticated VNC access refers to the ability to connect to a VNC (Virtual Network Computing) server without requiring any form of authentication. This can pose a potential security risk as unauthorized or malicious individuals can access an unauthenticated VNC server, potentially impacting the system or gaining access to sensitive data.
+  tags: vnc,unauth
+
+
+tcp:
+  - inputs:
+      - data: "RFB 003.008\n"
+        read: 1024
+      - data: "RFB 003.007\n"
+        read: 1024
+
+    host:
+      - "{{Hostname}}:5900"
+      - "{{Hostname}}:5901"    
+
+    matchers:
+      - type: word
+        part: raw      
+        words:
+          - "RFB 003.008"
+          - "RFB 003.007"
+          - "Authentication disabled"
+        condition: or
+          
